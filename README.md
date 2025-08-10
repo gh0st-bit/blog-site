@@ -21,7 +21,7 @@ A modern, full-stack blog application built with Next.js, MongoDB, TypeScript, a
 #### Windows Users:
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/gh0st-bit/blog-site
 cd blog-site
 
 # Run the setup script
@@ -31,7 +31,7 @@ setup.bat
 #### Mac/Linux Users:
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/gh0st-bit/blog-site
 cd blog-site
 
 # Make script executable and run

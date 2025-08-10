@@ -48,6 +48,14 @@ A fully functional Next.js blog application has been created with:
 - TESTING.md for verification steps
 - Auto-fallback system (MongoDB → Mock database)
 
+✅ **Enhanced Blog Features**:
+- "My Blog Site" branding
+- Create button to open blog writing panel
+- Publish button for publishing blogs
+- View button that opens blog preview in modal
+- Professional blog preview with proper styling
+- Fixed white text/background visibility issues
+
 To use the application:
 1. Application is running at http://localhost:3000
 2. Use the mock database for immediate testing

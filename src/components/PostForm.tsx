@@ -9,7 +9,11 @@ type Post = {
   content: string;
 };
 
-export default function PostForm({ post, onSave }: Readonly<{ post?: Post; onSave: () => void }>) {
+export default function PostForm({ post, onSave, onCancel }: Readonly<{ 
+  post?: Post; 
+  onSave: () => void;
+  onCancel?: () => void;
+}>) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,58 +54,76 @@ export default function PostForm({ post, onSave }: Readonly<{ post?: Post; onSav
   const handleCancel = () => {
     setTitle('');
     setContent('');
-    onSave(); // This will clear the editing post
+    if (onCancel) {
+      onCancel();
+    } else {
+      onSave(); // Fallback to onSave if onCancel not provided
+    }
   };
 
   const getSubmitButtonText = () => {
-    if (isSubmitting) return 'Saving...';
-    return post ? 'Update Post' : 'Create Post';
+    if (isSubmitting) return 'Publishing...';
+    return post ? 'Update Post' : '📝 Publish Post';
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-6 border rounded-lg shadow-sm bg-white">
-      <h2 className="text-xl font-semibold">
-        {post ? 'Edit Post' : 'Create New Post'}
-      </h2>
+    <div className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+        <h2 className="text-xl font-semibold text-white">
+          {post ? '✏️ Edit Post' : '✍️ Create New Post'}
+        </h2>
+      </div>
       
-      <input
-        className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Post title..."
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        required
-        disabled={isSubmitting}
-      />
-      
-      <textarea
-        className="w-full p-3 border rounded-md h-32 resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500"
-        placeholder="Write your post content here..."
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        required
-        disabled={isSubmitting}
-      />
-      
-      <div className="flex gap-2">
-        <button 
-          className="px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors disabled:opacity-50"
-          type="submit"
-          disabled={isSubmitting}
-        >
-          {getSubmitButtonText()}
-        </button>
+      <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+            Post Title
+          </label>
+          <input
+            id="title"
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+            placeholder="Enter an engaging title for your post..."
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            required
+            disabled={isSubmitting}
+          />
+        </div>
         
-        {post && (
+        <div>
+          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
+            Post Content
+          </label>
+          <textarea
+            id="content"
+            className="w-full p-4 border border-gray-300 rounded-lg h-40 resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+            placeholder="Write your blog post content here. Share your thoughts, experiences, and insights..."
+            value={content}
+            onChange={e => setContent(e.target.value)}
+            required
+            disabled={isSubmitting}
+          />
+        </div>
+        
+        <div className="flex gap-3 pt-4">
+          <button 
+            className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-3 px-6 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {getSubmitButtonText()}
+          </button>
+          
           <button 
             type="button"
-            className="px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-colors"
+            className="px-6 py-3 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition-colors duration-200 disabled:opacity-50"
             onClick={handleCancel}
             disabled={isSubmitting}
           >
             Cancel
           </button>
-        )}
-      </div>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 }
