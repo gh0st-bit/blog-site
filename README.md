@@ -38,22 +38,13 @@ docker compose up --build
 
 **Access your blog at:** http://localhost:3000
 
-### Method 3: Local Development
-
-```bash
-git clone https://github.com/gh0st-bit/blog-site
-cd blog-site
-npm install
-npm run dev
-```
-
 ## 🎯 What You Get
 
-| Feature | URL | Credentials |
+| Feature | URL | Description |
 |---------|-----|-------------|
-| **🏠 Blog Application** | http://localhost:3000 | - |
-| **📊 Database Admin** | http://localhost:8081 | admin / admin123 |
-| **🗄️ MongoDB** | localhost:27017 | - |
+| **🏠 Blog Application** | http://localhost:3000 | Main blog interface |
+| **📊 Database Admin** | http://localhost:8081 | MongoDB admin (Docker only) |
+| **🗄️ MongoDB** | localhost:27017 | Database (Docker only) |
 
 ## 🛠️ Tech Stack
 
@@ -94,25 +85,6 @@ cp .env.example .env.local
 
 # 4. Start development
 npm run dev
-```
-
-## 🐳 Docker Commands
-
-```bash
-# Start all services
-docker compose up --build
-
-# Run in background
-docker compose up -d
-
-# View logs
-docker compose logs -f
-
-# Stop services
-docker compose down
-
-# Clean reset
-docker compose down -v && docker compose up --build
 ```
 
 ## 🔍 API Endpoints

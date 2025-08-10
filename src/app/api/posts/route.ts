@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import { mockDb } from '@/lib/mockdb';
+import { MongoClient } from 'mongodb';
 
 // Try to import MongoDB, fall back to mock if not available
-let clientPromise: Promise<any> | null = null;
+let clientPromise: Promise<MongoClient> | null = null;
 try {
   const { default: mongoClientPromise } = await import('@/lib/mongodb');
   clientPromise = mongoClientPromise;
 } catch (error) {
-  console.log('MongoDB not available, using mock database');
+  console.log('MongoDB not available, using mock database', error);
 }
 
 export async function GET() {
