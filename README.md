@@ -51,7 +51,7 @@ The setup script will:
 
 ```bash
 # Clone and navigate to the project
-git clone <your-repo-url>
+git clone https://github.com/gh0st-bit/blog-site
 cd blog-site
 
 # Start all services
