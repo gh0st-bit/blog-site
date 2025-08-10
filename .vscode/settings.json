@@ -1,0 +1,21 @@
+{
+    "docker.dockerComposeBuild": true,
+    "docker.dockerComposeDetached": true,
+    "docker.showStartPage": false,
+    "docker.defaultRegistryPath": "",
+    "files.associations": {
+        "*.dockerfile": "dockerfile",
+        "docker-compose*.yml": "dockercompose",
+        "docker-compose*.yaml": "dockercompose"
+    },
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "docker-compose.yml": "docker-compose.*.yml,docker-compose.*.yaml,.dockerignore,Dockerfile*",
+        "package.json": "package-lock.json,npm-shrinkwrap.json,yarn.lock,pnpm-lock.yaml"
+    },
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "emmet.includeLanguages": {
+        "typescript": "html",
+        "typescriptreact": "html"
+    }
+}

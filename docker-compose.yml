@@ -9,9 +9,8 @@ services:
       - "3000:3000"
     depends_on:
       - mongo
-    environment:
-      - NODE_ENV=production
-      - MONGODB_URI=mongodb://mongo:27017/blog-db
+    env_file:
+      - .env.docker
     restart: unless-stopped
     networks:
       - blog-network

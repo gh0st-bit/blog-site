@@ -8,6 +8,102 @@
 			"isBackground": true,
 			"problemMatcher": [],
 			"group": "build"
+		},
+		{
+			"label": "Docker: Build and Start Blog App",
+			"type": "shell",
+			"command": "docker",
+			"args": [
+				"compose",
+				"up",
+				"--build"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Docker: Start Blog App (Background)",
+			"type": "shell",
+			"command": "docker",
+			"args": [
+				"compose",
+				"up",
+				"-d"
+			],
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Docker: Stop Blog App",
+			"type": "shell",
+			"command": "docker",
+			"args": [
+				"compose",
+				"down"
+			],
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Docker: View Logs",
+			"type": "shell",
+			"command": "docker",
+			"args": [
+				"compose",
+				"logs",
+				"-f"
+			],
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Docker: Restart Services",
+			"type": "shell",
+			"command": "docker",
+			"args": [
+				"compose",
+				"restart"
+			],
+			"group": "build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Test: Run PowerShell Tests",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\test-app.ps1"
+			],
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "Test: Run Docker Tests",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".\\test-docker.ps1"
+			],
+			"group": "test",
+			"problemMatcher": []
+		},
+		{
+			"label": "Build: Next.js Production Build",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"group": "build",
+			"problemMatcher": []
 		}
 	]
 }

@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
 type Post = {
   _id?: string;
   title: string;
@@ -10,12 +12,23 @@ export default function BlogView({ post, onClose }: Readonly<{
   post: Post; 
   onClose: () => void; 
 }>) {
+  const [currentDate, setCurrentDate] = useState<string>('');
+
+  useEffect(() => {
+    // Set date on client side to avoid hydration issues
+    setCurrentDate(new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    }));
+  }, []);
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 modal-backdrop flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 bg-black bg-opacity-50 modal-backdrop flex items-center justify-center p-4 z-50" style={{ margin: 0, top: 0, left: 0, right: 0, bottom: 0 }}>
+      <div className="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden mx-auto my-auto transform transition-all duration-300 ease-out">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-white">📖 Blog Preview</h1>
+          <h1 className="text-2xl font-bold text-white">Blog Preview</h1>
           <button 
             onClick={onClose}
             className="text-white hover:text-gray-200 text-3xl font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-white hover:bg-opacity-20 transition-colors"
@@ -37,11 +50,7 @@ export default function BlogView({ post, onClose }: Readonly<{
                   <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                   </svg>
-                  {new Date().toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                  })}
+                  {currentDate || 'Loading...'}
                 </span>
                 <span className="mx-4">•</span>
                 <span className="flex items-center bg-gray-100 px-3 py-1 rounded-full">

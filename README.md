@@ -81,6 +81,30 @@ npm run dev
 
 The application will automatically use the mock database if MongoDB is not available, so you can start developing immediately!
 
+## 📦 NPM vs NPX - What's the Difference?
+
+### NPM (Node Package Manager)
+- **Purpose**: Package manager for installing and managing dependencies
+- **Usage**: `npm install package-name` (installs packages)
+- **When to use**: Installing dependencies, running scripts defined in package.json
+
+### NPX (Node Package eXecute) 
+- **Purpose**: Executes packages without installing them globally
+- **Usage**: `npx create-next-app` (runs commands directly)
+- **When to use**: Running one-time commands, using CLI tools
+
+### In This Project:
+```bash
+# Use NPM for these commands:
+npm install          # Install project dependencies
+npm run dev          # Run development server
+npm run build        # Build the application
+npm run start        # Start production server
+
+# Use NPX for one-time setup:
+npx create-next-app@latest my-blog  # Create new Next.js project
+```
+
 ## 📦 Docker Services
 
 When using Docker Compose, the following services are available:

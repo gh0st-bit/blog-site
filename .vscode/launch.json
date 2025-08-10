@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Blog App (Local)",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/.bin/next",
+            "args": ["dev"],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "integratedTerminal",
+            "serverReadyAction": {
+                "pattern": "- Local:.*",
+                "uriFormat": "http://localhost:3000",
+                "action": "openExternally"
+            }
+        },
+        {
+            "name": "Attach to Docker Container",
+            "type": "node",
+            "request": "attach",
+            "address": "localhost",
+            "port": 9229,
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/app",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ]
+}

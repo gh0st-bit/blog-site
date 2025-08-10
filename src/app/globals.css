@@ -56,4 +56,21 @@ button {
 /* Modal backdrop blur */
 .modal-backdrop {
   backdrop-filter: blur(4px);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+}
+
+/* Ensure modal is properly centered */
+.modal-backdrop > div {
+  margin: auto !important;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
 }
