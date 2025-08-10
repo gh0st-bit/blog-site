@@ -1,6 +1,21 @@
 # 📝 Blog Site - Full Stack Next.js Application
 
-> A modern, production-ready blog application with Next.js, MongoDB, TypeScript, and Docker support.
+> A modern, production-ready blog application with Next.js, MongoDB, TypeScript## 📖 Documentation
+
+- **[Complete Docker Guide](DOCKER_GUIDE.md)** - Comprehensive Docker setup and troubleshooting  
+- **[Complete Project Documentation](docs/blog-app-documentation.md)** - Full 50+ page guide covering:
+  - Architecture & Features
+  - Installation & Setup
+  - API Documentation
+  - Troubleshooting
+  - TypeScript vs JavaScript
+  - Deployment guides
+
+## 🔧 Helper Tools
+
+- **Docker Command Helper**: `./docker-command-helper.sh` - Auto-detects your Docker setup
+- **Quick Docker Fix**: `./quick-docker-fix.sh` - One-click Docker startup
+- **Status Checker**: `./status.sh` (Linux/Mac) or `status.bat` (Windows)d Docker support.
 
 [![Test Status](https://github.com/gh0st-bit/blog-site/workflows/Test%20Docker%20Setup/badge.svg)](https://github.com/gh0st-bit/blog-site/actions)
 
@@ -126,37 +141,22 @@ npm run dev
 | `PUT` | `/api/posts/[id]` | Update post |
 | `DELETE` | `/api/posts/[id]` | Delete post |
 
+## � Documentation
+
+- **[Complete Docker Guide](DOCKER_GUIDE.md)** - Comprehensive Docker setup and troubleshooting
+- **[Complete Documentation](docs/blog-app-documentation.md)** - Full project documentation
+
 ## 🚨 Troubleshooting
 
-### Common Issues
+### Quick Fixes
+- **Docker Issues**: See [DOCKER_GUIDE.md](DOCKER_GUIDE.md) for complete troubleshooting
+- **Port 3000 in use**: `pkill -f "next" && npm run dev`
+- **Dependencies**: `rm -rf node_modules package-lock.json && npm install`
+- **Build errors**: `rm -rf .next && npm run build`
 
-**🐳 Docker Issues:**
-```bash
-# Permission denied (Linux)
-sudo usermod -aG docker $USER && newgrp docker
-
-# Port already in use
-docker compose down && docker compose up
-
-# Build cache issues
-docker system prune && docker compose up --build
-```
-
-**⚡ Development Issues:**
-```bash
-# Dependencies issues
-rm -rf node_modules package-lock.json && npm install
-
-# Port 3000 in use
-pkill -f "next" && npm run dev
-
-# Build errors
-rm -rf .next && npm run build
-```
-
-**🔧 Quick Fixes:**
+### Platform-Specific
 - **Windows**: Run `start.bat` as Administrator
-- **Linux**: Use `sudo` for Docker commands or fix permissions
+- **Linux**: Use `sudo` for Docker or fix permissions with `sudo usermod -aG docker $USER`
 - **Mac**: Install Docker Desktop and restart terminal
 
 ## 📁 Project Structure
