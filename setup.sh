@@ -15,9 +15,9 @@ else
     echo "✓ .env.local already exists"
 fi
 
-# Create .env.docker if it doesn't exist (though it should be in repo now)
+# Create .env.docker if it doesn't exist
 if [ ! -f ".env.docker" ]; then
-    echo "Creating .env.docker..."
+    echo "Creating missing .env.docker file..."
     cat > .env.docker << 'EOF'
 # Docker environment variables
 MONGODB_URI=mongodb://mongo:27017/blog-db

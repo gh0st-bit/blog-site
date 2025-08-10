@@ -14,7 +14,7 @@ if not exist ".env.local" (
 )
 
 if not exist ".env.docker" (
-    echo Creating .env.docker...
+    echo Creating missing .env.docker file...
     (
         echo # Docker environment variables
         echo MONGODB_URI=mongodb://mongo:27017/blog-db
