@@ -28,12 +28,26 @@ git clone https://github.com/gh0st-bit/blog-site && cd blog-site && start.bat
 git clone https://github.com/gh0st-bit/blog-site && cd blog-site && chmod +x start.sh && ./start.sh
 ```
 
-### Method 2: Docker (Production-like)
+### Method 2: Docker Commands
 
+#### **For Legacy Docker (most Linux systems):**
 ```bash
 git clone https://github.com/gh0st-bit/blog-site
 cd blog-site
-docker compose up --build
+docker-compose up --build -d
+```
+
+#### **For Modern Docker (newer systems):**
+```bash
+git clone https://github.com/gh0st-bit/blog-site
+cd blog-site
+docker compose up --build -d
+```
+
+#### **Auto-Detect Your System:**
+```bash
+chmod +x docker-command-helper.sh
+./docker-command-helper.sh
 ```
 
 **Access your blog at:** http://localhost:3000
@@ -56,13 +70,28 @@ docker compose up --build
 
 ## 📋 Available Commands
 
+### **Legacy Docker (docker-compose):**
+| Command | Description |
+|---------|-------------|
+| `docker-compose up --build -d` | Build and start services |
+| `docker-compose down` | Stop services |
+| `docker-compose logs -f` | View logs |
+| `docker-compose ps` | Check status |
+
+### **Modern Docker (docker compose):**
+| Command | Description |
+|---------|-------------|
+| `docker compose up --build -d` | Build and start services |
+| `docker compose down` | Stop services |
+| `docker compose logs -f` | View logs |
+| `docker compose ps` | Check status |
+
+### **Node.js Development:**
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Start development server |
 | `npm run build` | Build for production |
 | `npm start` | Start production server |
-| `docker compose up` | Start with Docker |
-| `docker compose down` | Stop Docker services |
 
 ## 🔧 Manual Setup (If Needed)
 
