@@ -40,6 +40,33 @@ fi
 echo "✓ Docker is installed"
 
 echo
+echo "Step 3: Detecting Docker Compose version..."
+
+# Detect which Docker Compose command to use
+COMPOSE_CMD=""
+if command -v docker-compose &> /dev/null; then
+    COMPOSE_CMD="docker-compose"
+    echo "✓ Using legacy docker-compose"
+elif docker compose version &> /dev/null; then
+    COMPOSE_CMD="docker compose"
+    echo "✓ Using Docker Compose V2"
+else
+    echo "ERROR: Neither 'docker-compose' nor 'docker compose' is available"
+    echo "Please install Docker Compose from: https://docs.docker.com/compose/install/"
+    exit 1
+fi
+
+echo
+echo "Step 4: Checking if Docker is running..."
+if ! command -v docker &> /dev/null; then
+    echo "ERROR: Docker is not installed"
+    echo "Please install Docker from: https://www.docker.com/get-docker"
+    echo "After installing Docker, restart this script."
+    exit 1
+fi
+echo "✓ Docker is installed"
+
+echo
 echo "Step 3: Checking if Docker is running..."
 
 # Try different methods to check if Docker is running
@@ -54,7 +81,7 @@ elif sudo docker ps &> /dev/null; then
     echo "   Run: sudo usermod -aG docker $USER && newgrp docker"
     DOCKER_RUNNING=true
     DOCKER_CMD="sudo docker"
-    COMPOSE_CMD="sudo docker-compose"
+    NEED_SUDO=true
 # Method 3: Check if Docker daemon is running via systemctl
 elif systemctl is-active --quiet docker; then
     echo "⚠️  Docker daemon is running but not accessible. Checking permissions..."
@@ -68,7 +95,7 @@ elif systemctl is-active --quiet docker; then
     fi
     DOCKER_RUNNING=true
     DOCKER_CMD="sudo docker"
-    COMPOSE_CMD="sudo docker-compose"
+    NEED_SUDO=true
 fi
 
 if [ "$DOCKER_RUNNING" = false ]; then
@@ -80,25 +107,30 @@ fi
 
 # Set default commands if not set
 DOCKER_CMD=${DOCKER_CMD:-docker}
-COMPOSE_CMD=${COMPOSE_CMD:-docker-compose}
 
 echo "✓ Docker is running"
 
 echo
-echo "Step 4: Building and starting the application..."
+echo "Step 5: Building and starting the application..."
 echo "This may take a few minutes on first run..."
+echo "Using command: $COMPOSE_CMD"
 
-# Use the appropriate command based on what was detected
-if [ "$COMPOSE_CMD" = "sudo docker-compose" ]; then
-    echo "Using sudo for docker-compose commands..."
-    sudo docker-compose up --build -d
+# Use the detected compose command
+if [[ "$NEED_SUDO" == "true" ]]; then
+    echo "Using sudo for docker commands..."
+    sudo $COMPOSE_CMD up --build -d
 else
-    docker-compose up --build -d
+    $COMPOSE_CMD up --build -d
 fi
 
 if [ $? -ne 0 ]; then
     echo "ERROR: Failed to start the application"
     echo "Please check the Docker logs for more information"
+    echo ""
+    echo "💡 Try these commands:"
+    echo "   $COMPOSE_CMD logs"
+    echo "   $COMPOSE_CMD down"
+    echo "   $COMPOSE_CMD up --build"
     exit 1
 fi
 
@@ -108,14 +140,14 @@ echo "  🎉 SUCCESS! Blog Site is now running!"
 echo "============================================"
 echo
 echo "📱 Application URL: http://localhost:3000"
-echo "📊 MongoDB Admin: http://localhost:8081 (if mongo-express is enabled)"
+echo "📊 MongoDB Admin: http://localhost:8081 (admin/admin123)"
 echo
-if [ "$COMPOSE_CMD" = "sudo docker-compose" ]; then
-    echo "To stop the application: sudo docker-compose down"
-    echo "To view logs: sudo docker-compose logs -f"
+if [[ "$NEED_SUDO" == "true" ]]; then
+    echo "To stop the application: sudo $COMPOSE_CMD down"
+    echo "To view logs: sudo $COMPOSE_CMD logs -f"
 else
-    echo "To stop the application: docker-compose down"
-    echo "To view logs: docker-compose logs -f"
+    echo "To stop the application: $COMPOSE_CMD down"
+    echo "To view logs: $COMPOSE_CMD logs -f"
 fi
 echo
 echo "Opening the application in your default browser..."
