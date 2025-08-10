@@ -5,7 +5,32 @@ echo "  Blog Site Setup Script"
 echo "============================================"
 echo
 
-echo "Step 1: Checking if Docker is installed..."
+echo "Step 1: Setting up environment files..."
+# Create .env.local if it doesn't exist
+if [ ! -f ".env.local" ]; then
+    echo "Creating .env.local from template..."
+    cp .env.example .env.local
+    echo "✓ .env.local created"
+else
+    echo "✓ .env.local already exists"
+fi
+
+# Create .env.docker if it doesn't exist (though it should be in repo now)
+if [ ! -f ".env.docker" ]; then
+    echo "Creating .env.docker..."
+    cat > .env.docker << 'EOF'
+# Docker environment variables
+MONGODB_URI=mongodb://mongo:27017/blog-db
+NODE_ENV=production
+NEXT_PUBLIC_API_URL=http://localhost:3000
+EOF
+    echo "✓ .env.docker created"
+else
+    echo "✓ .env.docker already exists"
+fi
+
+echo
+echo "Step 2: Checking if Docker is installed..."
 if ! command -v docker &> /dev/null; then
     echo "ERROR: Docker is not installed"
     echo "Please install Docker from: https://www.docker.com/get-docker"
@@ -15,7 +40,7 @@ fi
 echo "✓ Docker is installed"
 
 echo
-echo "Step 2: Checking if Docker is running..."
+echo "Step 3: Checking if Docker is running..."
 
 # Try different methods to check if Docker is running
 DOCKER_RUNNING=false
@@ -60,7 +85,7 @@ COMPOSE_CMD=${COMPOSE_CMD:-docker-compose}
 echo "✓ Docker is running"
 
 echo
-echo "Step 3: Building and starting the application..."
+echo "Step 4: Building and starting the application..."
 echo "This may take a few minutes on first run..."
 
 # Use the appropriate command based on what was detected

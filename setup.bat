@@ -4,7 +4,30 @@ echo  Blog Site Setup Script
 echo ============================================
 echo.
 
-echo Step 1: Checking if Docker is installed...
+echo Step 1: Setting up environment files...
+if not exist ".env.local" (
+    echo Creating .env.local from template...
+    copy .env.example .env.local >nul
+    echo ✓ .env.local created
+) else (
+    echo ✓ .env.local already exists
+)
+
+if not exist ".env.docker" (
+    echo Creating .env.docker...
+    (
+        echo # Docker environment variables
+        echo MONGODB_URI=mongodb://mongo:27017/blog-db
+        echo NODE_ENV=production
+        echo NEXT_PUBLIC_API_URL=http://localhost:3000
+    ) > .env.docker
+    echo ✓ .env.docker created
+) else (
+    echo ✓ .env.docker already exists
+)
+
+echo.
+echo Step 2: Checking if Docker is installed...
 docker --version >nul 2>&1
 if %errorlevel% neq 0 (
     echo ERROR: Docker is not installed or not in PATH
@@ -16,7 +39,7 @@ if %errorlevel% neq 0 (
 echo ✓ Docker is installed
 
 echo.
-echo Step 2: Checking if Docker is running...
+echo Step 3: Checking if Docker is running...
 docker ps >nul 2>&1
 if %errorlevel% neq 0 (
     echo ERROR: Docker is not running
@@ -27,7 +50,7 @@ if %errorlevel% neq 0 (
 echo ✓ Docker is running
 
 echo.
-echo Step 3: Building and starting the application...
+echo Step 4: Building and starting the application...
 echo This may take a few minutes on first run...
 docker-compose up --build -d
 

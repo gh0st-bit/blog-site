@@ -62,11 +62,23 @@ The setup script will:
 git clone https://github.com/gh0st-bit/blog-site
 cd blog-site
 
-# Start all services
+# Quick start (no setup script needed)
 docker-compose up --build
 
 # Access the application
 open http://localhost:3000
+```
+
+**Alternative with detached mode:**
+```bash
+# Start in background
+docker-compose up --build -d
+
+# View logs
+docker-compose logs -f
+
+# Stop when done
+docker-compose down
 ```
 
 ## 🛠️ Development Setup

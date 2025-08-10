@@ -5,7 +5,32 @@ echo "  Blog Site Quick Setup (Linux/Mac)"
 echo "============================================"
 echo
 
-echo "🔧 Setting up Docker permissions..."
+echo "� Setting up environment files..."
+# Create .env.local if it doesn't exist
+if [ ! -f ".env.local" ]; then
+    echo "Creating .env.local from template..."
+    cp .env.example .env.local
+    echo "✓ .env.local created"
+else
+    echo "✓ .env.local already exists"
+fi
+
+# Ensure .env.docker exists
+if [ ! -f ".env.docker" ]; then
+    echo "Creating .env.docker..."
+    cat > .env.docker << 'EOF'
+# Docker environment variables
+MONGODB_URI=mongodb://mongo:27017/blog-db
+NODE_ENV=production
+NEXT_PUBLIC_API_URL=http://localhost:3000
+EOF
+    echo "✓ .env.docker created"
+else
+    echo "✓ .env.docker already exists"
+fi
+
+echo
+echo "�🔧 Setting up Docker permissions..."
 
 # Check if user is in docker group
 if groups $USER | grep -q docker; then
