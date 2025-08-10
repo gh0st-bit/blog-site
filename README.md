@@ -37,6 +37,14 @@ cd blog-site
 # Make script executable and run
 chmod +x setup.sh
 ./setup.sh
+
+# If you encounter Docker permission issues:
+chmod +x quick-setup.sh
+./quick-setup.sh
+
+# For troubleshooting:
+chmod +x docker-troubleshoot.sh
+./docker-troubleshoot.sh
 ```
 
 The setup script will:
@@ -216,6 +224,11 @@ docker-compose down -v
 - **Docker not found**: Install Docker Desktop
 - **Port conflicts**: Change ports in `docker-compose.yml`
 - **Build fails**: Run `docker system prune` and try again
+
+### Linux-Specific Issues
+- **Permission denied**: Run `sudo usermod -aG docker $USER && newgrp docker`
+- **Docker daemon not running**: Run `sudo systemctl start docker`
+- **Setup script fails**: Use `./quick-setup.sh` for automatic permission handling
 
 ### Application Issues
 - **Can't connect to database**: App will automatically use mock database
